@@ -1,6 +1,7 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +18,10 @@ public class Main {
         members = new String[num];
 
         for (int j = 0; j < num; j++) {
-            members[j] = "Member " + (j + 1);
+            System.out.println("Please enter name for member " + (j+1));
+            Scanner getName = new Scanner(System.in);
+            String memberName = getName.nextLine();
+            members[j] = memberName;
         }
 
         while (members.length>1) {
@@ -28,7 +32,15 @@ public class Main {
                 System.out.println("2. Exit chat");
 
                 Scanner sc_select = new Scanner(System.in);
-                int num_select = sc_select.nextInt();
+                int num_select = 0;
+                try
+                {
+                    num_select = sc_select.nextInt();                }
+                catch (InputMismatchException e)
+                {
+                    System.out.println("Please enter only 1 or 2");
+                }
+
 
                 switch (num_select) {
                     case 1:
@@ -41,9 +53,11 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("You have exited chat");
-                        System.out.println(" ");
                         members = removeTheElement(members, i);
+                        i = i-1;
                         break;
+                    default:
+                        i = i-1;
                 }
             }
         }
