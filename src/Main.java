@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static int num;
-    public static String[] members;
+    public static int num; // number of members
+    public static String[] members; // members array
 
     public static void main(String[] args) {
 
+// Creating an object of class Members
         Members member = new Members();
 
         Scanner sc = new Scanner(System.in);
