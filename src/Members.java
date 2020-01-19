@@ -2,11 +2,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Members {
 
-    Scanner scanner = new Scanner(System.in);
     public String chatHistory = "";
     public DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
@@ -14,6 +14,7 @@ public class Members {
     public void createMembers(int numberOfMembers, String[] members) {
         for (int j = 0; j < numberOfMembers; j++) {
             System.out.println("Please enter name for member " + (j+1));
+            Scanner scanner = new Scanner(System.in);
             String memberName = scanner.nextLine();
             members[j] = memberName;
         }
@@ -21,29 +22,33 @@ public class Members {
 
 //  startChat method starts chat for members that have been created and chat goes until all members exit chat
     public void startChat(String[] members){
-        while (members.length>1) {
-            for (int i = 0; i < members.length; i++) {
+        while (members.length>0) {
+                Random random = new Random();
+                int i = random.nextInt(members.length);
+
+                Scanner scanner = new Scanner(System.in);
+
                 System.out.println(members[i]);
                 System.out.println("Press number for action");
                 System.out.println("1. Send message");
                 System.out.println("2. Exit chat");
 
-                int NumSelect = 0;
+                int numSelect = 0;
 
                 try
                 {
-                    NumSelect = scanner.nextInt();                }
+                    numSelect = scanner.nextInt();                }
                 catch (InputMismatchException e)
                 {
                     System.out.println("Please enter only 1 or 2");
-                    i = i-1;
                 }
 
-                switch (NumSelect) {
+                switch (numSelect) {
                     case 1:
+                        Scanner scan = new Scanner(System.in);
                         System.out.println("Enter your message");
                         Date date = new Date();
-                        String message = dateFormat.format(date) + " : " + members[i] + " : " + scanner.nextLine();
+                        String message = dateFormat.format(date) + " : " + members[i] + " : " + scan.nextLine();
                         chatHistory += message + "\n";
                         break;
                     case 2:
@@ -62,9 +67,10 @@ public class Members {
                 System.out.println(chatHistory);
                 System.out.println("--------------------");
 
-            }
+
         }
 
+        System.out.println("\nChat was ended because everyone have exited");
         System.out.println(chatHistory);
 
     }
